@@ -1,0 +1,4 @@
+azureopenai == 0.0.1
+openai == 1.35.7
+streamlit == 1.29.0
+streamlit-chat == 0.0.2.2
