@@ -123,8 +123,7 @@ def append_call_center_info(response):
     return response
 
 def main():
-    st.title("Chatbot Kesehatan Mental")
-
+    
     # Pop-up disclaimer saat pertama kali membuka aplikasi
     if "disclaimer_shown" not in st.session_state:
         st.session_state.disclaimer_shown = False
@@ -143,6 +142,8 @@ def main():
             st.experimental_rerun()
 
     else:
+            
+        st.title("Chatbot Kesehatan Mental")
         with st.sidebar:
             st.header("Pengaturan")
             clear_button = st.button("Hapus Riwayat Chat")
