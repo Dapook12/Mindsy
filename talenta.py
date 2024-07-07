@@ -124,7 +124,36 @@ def append_call_center_info(response):
 
 def main():
     st.title("Chatbot Kesehatan Mental")
-
+        
+    # Pop-up disclaimer saat pertama kali membuka aplikasi
+    if "disclaimer_shown" not in st.session_state:
+        st.session_state.disclaimer_shown = False
+    if not st.session_state.disclaimer_shown:
+        with st.modal("Disclaimer"):
+            st.write(
+                """
+                <style>
+                .disclaimer-content {
+                    text-align: justify;
+                    padding: 20px;
+                    border-radius: 10px;
+                    background-color: #f9f9f9;
+                }
+                </style>
+                """, unsafe_allow_html=True
+            )
+            st.markdown(
+                """
+                <div class="disclaimer-content">
+                <h3>Disclaimer</h3>
+                <p>Platform ini hanya sebagai sarana edukasi belaka dan tidak akan menyediakan nasihat medis. Untuk bantuan medis profesional, silakan hubungi profesional kesehatan yang berlisensi atau penyedia layanan kesehatan.</p>
+                <p>Klik tombol di bawah ini untuk melanjutkan.</p>
+                </div>
+                """, unsafe_allow_html=True
+            )
+            if st.button("Lanjutkan"):
+                st.session_state.disclaimer_shown = True
+            
     with st.sidebar:
         st.header("Pengaturan")
         clear_button = st.button("Hapus Riwayat Chat")
