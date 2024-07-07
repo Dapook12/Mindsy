@@ -114,6 +114,14 @@ def ask_openai(question):
     else:
         return "Maaf, saya tidak yakin dengan pertanyaan Anda saat ini."
 
+def append_call_center_info(response):
+    # Daftar kata kunci yang akan memicu pesan arahan
+    keywords = ["butuh bantuan", "membutuhkan bantuan", "hubungi profesional", "kesulitan", "krisis", "depresi", "bantuan segera", "obat", "diagnosa", "bunuh diri", "mati", "penyakit"]
+    # Periksa apakah salah satu kata kunci ada dalam respons
+    if any(keyword in response.lower() for keyword in keywords):
+        response += "\n\nJika Anda membutuhkan bantuan segera, harap hubungi call center layanan kesehatan mental terdekat di 119 atau kunjungi pusat layanan kesehatan mental di kota Anda."
+    return response
+
 def main():
     st.title("Chatbot Kesehatan Mental")
 
@@ -233,7 +241,8 @@ def main():
         
         question = f"Pengguna bertanya: {prompt}"
         response = ask_openai(question)
-        st.session_state.messages.append({"role": "assistant", "content": response})
+        response_with_call_center_info = append_call_center_info(response)
+        st.session_state.messages.append({"role": "assistant", "content": response_with_call_center_info})
         st.rerun()
 
 if __name__ == "__main__":
