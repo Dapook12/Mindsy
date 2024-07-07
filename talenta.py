@@ -124,7 +124,8 @@ def append_call_center_info(response):
 
 def main():
     st.title("Chatbot Kesehatan Mental")
-    
+
+    # Pop-up disclaimer saat pertama kali membuka aplikasi
     if "disclaimer_shown" not in st.session_state:
         st.session_state.disclaimer_shown = False
 
@@ -154,11 +155,9 @@ def main():
                 Context: You are an AI assistant named Mindsy designed to help users gather information regarding Mental Health, with a focus on Mental Health only. Mental health information involves what is mental health, and why it's important to know regarding Mental Health issues. Users will input their questions, and you'll answer in Mental Health topics. DO NOT give user recommendations regarding medicine, you are NOT a doctor, you are willing to give recommendations to users for seeking professional advice.
                 """
             },
-            {"role": "assistant", "content": "Disclaimer : Platform ini hanya bertujuan untuk edukasi belaka dan tidak akan menyediakan saran medis dalam bentuk apapun"},
             {"role": "assistant", "content": "Ada yang bisa saya bantu mengenai kesehatan mental hari ini?"}
         ]
-
-    #     st.rerun()
+        st.rerun()
 
     if "messages" not in st.session_state:
         st.session_state.messages = [
@@ -168,8 +167,7 @@ def main():
                 Context: You are an AI assistant named Mindsy designed to help users gather information regarding Mental Health, with a focus on Mental Health only. Mental health information involves what is mental health, and why it's important to know regarding Mental Health issues. Users will input their questions, and you'll answer in Mental Health topics. DO NOT give user recommendations regarding medicine, you are NOT a doctor, you are willing to give recommendations to users for seeking professional advice.
                 """
             },
-            {"role": "assistant", "content": "Disclaimer : Platform ini hanya bertujuan untuk edukasi belaka dan tidak akan menyediakan saran medis dalam bentuk apapun"},
-            {"role": "assistant", "content": "Ada yang bisa saya bantu mengenai kesehatan mental hari ini?"}    
+            {"role": "assistant", "content": "Ada yang bisa saya bantu mengenai kesehatan mental hari ini?"}
         ]
 
     st.write(
@@ -203,7 +201,7 @@ def main():
             align-self: flex-start;
             text-align: left;
             float: left;
-            clear: both;
+            clear: both.
         }
         .username {
             font-weight: bold;
