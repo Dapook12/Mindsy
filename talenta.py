@@ -135,132 +135,132 @@ def main():
             <div style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; text-align: justify;">
                 <h3>Disclaimer</h3>
                 <p>Platform ini hanya sebagai sarana edukasi belaka dan tidak akan menyediakan nasihat medis. Untuk bantuan medis profesional, silakan hubungi profesional kesehatan yang berlisensi atau penyedia layanan kesehatan.</p>
-                <p>Klik tombol di bawah ini untuk melanjutkan.</p>
-                <button onclick="document.getElementById('disclaimer').style.display='none';">Lanjutkan</button>
             </div>
             """, unsafe_allow_html=True
         )
-        st.session_state.disclaimer_shown = True
-        st.stop()
+        if st.button("Lanjutkan"):
+            st.session_state.disclaimer_shown = True
+            st.experimental_rerun()
 
-    with st.sidebar:
-        st.header("Pengaturan")
-        clear_button = st.button("Hapus Riwayat Chat")
+    else:
+        with st.sidebar:
+            st.header("Pengaturan")
+            clear_button = st.button("Hapus Riwayat Chat")
 
-    if clear_button:
-        st.session_state.messages = [
-            {
-                "role": "system",
-                "content": """
-                Context: You are an AI assistant named Mindsy designed to help users gather information regarding Mental Health, with a focus on Mental Health only. Mental health information involves what is mental health, and why it's important to know regarding Mental Health issues. Users will input their questions, and you'll answer in Mental Health topics. DO NOT give user recommendations regarding medicine, you are NOT a doctor, you are willing to give recommendations to users for seeking professional advice.
-                """
-            },
-            {"role": "assistant", "content": "Ada yang bisa saya bantu mengenai kesehatan mental hari ini?"}
-        ]
-        st.rerun()
+        if clear_button:
+            st.session_state.messages = [
+                {
+                    "role": "system",
+                    "content": """
+                    Context: You are an AI assistant named Mindsy designed to help users gather information regarding Mental Health, with a focus on Mental Health only. Mental health information involves what is mental health, and why it's important to know regarding Mental Health issues. Users will input their questions, and you'll answer in Mental Health topics. DO NOT give user recommendations regarding medicine, you are NOT a doctor, you are willing to give recommendations to users for seeking professional advice.
+                    """
+                },
+                {"role": "assistant", "content": "Ada yang bisa saya bantu mengenai kesehatan mental hari ini?"}
+            ]
+            st.experimental_rerun()
 
-    if "messages" not in st.session_state:
-        st.session_state.messages = [
-            {
-                "role": "system",
-                "content": """
-                Context: You are an AI assistant named Mindsy designed to help users gather information regarding Mental Health, with a focus on Mental Health only. Mental health information involves what is mental health, and why it's important to know regarding Mental Health issues. Users will input their questions, and you'll answer in Mental Health topics. DO NOT give user recommendations regarding medicine, you are NOT a doctor, you are willing to give recommendations to users for seeking professional advice.
-                """
-            },
-            {"role": "assistant", "content": "Ada yang bisa saya bantu mengenai kesehatan mental hari ini?"}
-        ]
+        if "messages" not in st.session_state:
+            st.session_state.messages = [
+                {
+                    "role": "system",
+                    "content": """
+                    Context: You are an AI assistant named Mindsy designed to help users gather information regarding Mental Health, with a focus on Mental Health only. Mental health information involves what is mental health, and why it's important to know regarding Mental Health issues. Users will input their questions, and you'll answer in Mental Health topics. DO NOT give user recommendations regarding medicine, you are NOT a doctor, you are willing to give recommendations to users for seeking professional advice.
+                    """
+                },
+                {"role": "assistant", "content": "Ada yang bisa saya bantu mengenai kesehatan mental hari ini?"}
+            ]
 
-    st.write(
-        """
-        <style>
-        .main-container {
-            padding: 20px;
-            border-radius: 10px;
-        }
-        .chat-container {
-            max-width: 800px;
-            margin: auto;
-        }
-        .user-message, .bot-message {
-            padding: 10px 15px;
-            margin: 10px 0;
-            border-radius: 10px;
-            max-width: 75%;
-            width: fit-content;
-            word-wrap: break-word;
-        }
-        .user-message {
-            background-color: #DCF8C6;
-            align-self: flex-end;
-            text-align: right;
-            float: right;
-            clear: both;
-        }
-        .bot-message {
-            background-color: #F1F0F0;
-            align-self: flex-start;
-            text-align: left;
-            float: left;
-            clear: both.
-        }
-        .username {
-            font-weight: bold;
-            margin-bottom: 5px;
-            display: block;
-        }
-        </style>
-        """, unsafe_allow_html=True
-    )
-
-    st.markdown("<div class='main-container'>", unsafe_allow_html=True)
-
-    chat_container = st.container()
-
-    with chat_container:
-        chat_container.write(
+        st.write(
             """
-            <div class="chat-container">
+            <style>
+            .main-container {
+                padding: 20px;
+                border-radius: 10px;
+            }
+            .chat-container {
+                max-width: 800px;
+                margin: auto;
+            }
+            .user-message, .bot-message {
+                padding: 10px 15px;
+                margin: 10px 0;
+                border-radius: 10px;
+                max-width: 75%;
+                width: fit-content;
+                word-wrap: break-word;
+            }
+            .user-message {
+                background-color: #DCF8C6;
+                align-self: flex-end;
+                text-align: right;
+                float: right;
+                clear: both;
+            }
+            .bot-message {
+                background-color: #F1F0F0;
+                align-self: flex-start;
+                text-align: left;
+                float: left;
+                clear: both.
+            }
+            .username {
+                font-weight: bold;
+                margin-bottom: 5px;
+                display: block;
+            }
+            </style>
             """, unsafe_allow_html=True
         )
 
-        for msg in st.session_state.messages:
-            if msg["role"] != "system":
-                if msg["role"] == "user":
-                    chat_container.markdown(
-                        f"""
-                        <div class='user-message'>
-                            <div>{msg['content']}</div>
-                        </div>
-                        """, 
-                        unsafe_allow_html=True
-                    )
-                else:
-                    chat_container.markdown(
-                        f"""
-                        <div class='bot-message'>
-                            <span class='username'>Mindsy</span>
-                            <div>{msg['content']}</div>
-                        </div>
-                        """, 
-                        unsafe_allow_html=True
-                    )
-        
-        chat_container.write(
-            """
-            </div>
-            """, unsafe_allow_html=True
-        )
+        st.markdown("<div class='main-container'>", unsafe_allow_html=True)
 
-    st.markdown("</div>", unsafe_allow_html=True)
+        chat_container = st.container()
 
-    if prompt := st.chat_input():
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        
-        question = f"Pengguna bertanya: {prompt}"
-        response = ask_openai(question)
-        response_with_call_center_info = append_call_center_info(response)
-        st.session_state.messages.append({"role": "assistant", "content": response_with_call_center_info})
-        st.rerun()
+        with chat_container:
+            chat_container.write(
+                """
+                <div class="chat-container">
+                """, unsafe_allow_html=True
+            )
+
+            for msg in st.session_state.messages:
+                if msg["role"] != "system":
+                    if msg["role"] == "user":
+                        chat_container.markdown(
+                            f"""
+                            <div class='user-message'>
+                                <div>{msg['content']}</div>
+                            </div>
+                            """, 
+                            unsafe_allow_html=True
+                        )
+                    else:
+                        chat_container.markdown(
+                            f"""
+                            <div class='bot-message'>
+                                <span class='username'>Mindsy</span>
+                                <div>{msg['content']}</div>
+                            </div>
+                            """, 
+                            unsafe_allow_html=True
+                        )
+            
+            chat_container.write(
+                """
+                </div>
+                """, unsafe_allow_html=True
+            )
+
+        st.markdown("</div>", unsafe_allow_html=True)
+
+        if prompt := st.chat_input():
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            
+            question = f"Pengguna bertanya: {prompt}"
+            response = ask_openai(question)
+            response_with_call_center_info = append_call_center_info(response)
+            st.session_state.messages.append({"role": "assistant", "content": response_with_call_center_info})
+            st.experimental_rerun()
 
 if __name__ == "__main__":
     main()
