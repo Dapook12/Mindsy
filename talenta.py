@@ -38,7 +38,7 @@ def main():
         st.session_state.disclaimer_shown = True
         st.warning("""
         Disclaimer: Platform ini hanya bertujuan untuk edukasi belaka dan tidak akan menyediakan saran medis dalam bentuk apapun. 
-        Jika Anda membutuhkan bantuan segera, harap hubungi call center layanan kesehatan mental terdekat di 119 atau kunjungi pusat layanan kesehatan mental di kota Anda.
+        Jika Anda membutuhkan bantuan, harap hubungi call center layanan kesehatan mental di 119 atau kunjungi pusat layanan kesehatan mental di kota Anda.
         """)
         if st.button("Saya Mengerti"):
             st.session_state.disclaimer_shown = True
