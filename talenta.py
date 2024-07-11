@@ -28,12 +28,6 @@ def ask_openai(question):
         st.error(f"Error: {str(e)}")
         return "Maaf, terjadi masalah saat mengakses layanan AI. Silakan coba lagi nanti."
 
-def append_call_center_info(response):
-    keywords = ["butuh bantuan", "membutuhkan bantuan", "hubungi profesional", "kesulitan", "krisis", "depresi", "bantuan segera", "obat", "diagnosa", "bunuh diri", "mati", "penyakit"]
-    if any(keyword in response.lower() for keyword in keywords):
-        response += "Jika Anda membutuhkan bantuan segera, harap hubungi call center layanan kesehatan mental terdekat di 119 atau kunjungi pusat layanan kesehatan mental di kota Anda."
-    return response
-
 def main():
     st.title("Mindsy")
 
@@ -165,8 +159,7 @@ def main():
         
         question = f"Pengguna bertanya: {prompt}"
         response = ask_openai(question)
-        response_with_call_center_info = append_call_center_info(response)
-        st.session_state.messages.append({"role": "assistant", "content": response_with_call_center_info})
+        st.session_state.messages.append({"role": "assistant", "content": response})
         st.rerun()
 
 if __name__ == "__main__":
