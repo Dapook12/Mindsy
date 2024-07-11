@@ -29,7 +29,7 @@ def ask_openai(question):
         return "Maaf, terjadi masalah saat mengakses layanan AI. Silakan coba lagi nanti."
 
 def main():
-    st.title("Mindsy")
+    st.title("Mindsyier")
 
     if "disclaimer_shown" not in st.session_state:
         st.session_state.disclaimer_shown = False
